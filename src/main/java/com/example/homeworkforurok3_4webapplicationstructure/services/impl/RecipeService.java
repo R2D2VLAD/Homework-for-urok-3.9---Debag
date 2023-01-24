@@ -1,7 +1,6 @@
 package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +18,10 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
 
     @Override
     public Recipe getRecipe(long id) {
-        for (Recipe recipe : recipeMap.values()) {
-            recipeMap.get(id);
-            if (recipe != null) {
-                return recipe;
+        for (Recipe ignored : recipeMap.values()) {
+            Recipe recipe1 = recipeMap.get(id);
+            if (recipe1 != null) {
+                return recipe1;
             }
         }
         return null;
@@ -30,7 +29,7 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
 
     @Override
     public Recipe editRecipe(long id, Recipe recipe) {
-        for (Map.Entry<Long, Recipe> recipe1 : recipeMap.entrySet()) {
+        for (Map.Entry<Long, Recipe> ignored : recipeMap.entrySet()) {
             if (recipeMap.containsKey(id)) {
                 recipeMap.put(id, recipe);
                 return recipe;
@@ -41,7 +40,7 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
 
     @Override
     public boolean deleteRecipe(long id) {
-        for (Recipe recipe : recipeMap.values()) {
+        for (Recipe ignored : recipeMap.values()) {
             if (recipeMap.containsKey(id)) {
                 recipeMap.remove(id);
                 return true;
@@ -52,6 +51,6 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
 
     @Override
     public void getAllRecipe() {
-        recipeMap.forEach((key, value) -> {});
+        recipeMap.forEach((id, recipe) -> {});
     }
 }

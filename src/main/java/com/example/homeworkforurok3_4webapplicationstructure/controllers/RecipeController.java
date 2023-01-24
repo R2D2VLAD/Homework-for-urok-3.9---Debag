@@ -4,8 +4,6 @@ import com.example.homeworkforurok3_4webapplicationstructure.services.impl.Recip
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
@@ -28,13 +26,13 @@ public class RecipeController {
         if (recipe1 == null) {
             return ResponseEntity.notFound().build();
         }
-        return ok(recipe);
+        return ResponseEntity.ok(recipe);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable long id) {
         if (recipeService.deleteRecipe(id)) {
-            return ok().build();
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
