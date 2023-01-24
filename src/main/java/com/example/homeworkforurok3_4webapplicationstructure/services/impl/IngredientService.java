@@ -14,7 +14,7 @@ public class IngredientService implements IndredientService {
 
     @Override
     public long addIngredient(Ingredient ingredient) {
-        ingredientMap.put(id++, ingredient);
+        ingredientMap.put(id, ingredient);
         return id++;
     }
 
@@ -31,7 +31,7 @@ public class IngredientService implements IndredientService {
 
     @Override
     public Ingredient editIngredient(long id, Ingredient ingredient) {
-        for (Ingredient ignored : ingredientMap.values()) {
+        for (Ingredient ingredient1 : ingredientMap.values()) {
             if (ingredientMap.containsKey(id)) {
                 ingredientMap.put(id, ingredient);
                 return ingredient;
@@ -41,7 +41,7 @@ public class IngredientService implements IndredientService {
     }
     @Override
     public boolean deleteIngredient(long id) {
-        for (Ingredient ignored : ingredientMap.values()) {
+        for (Ingredient ingredient1 : ingredientMap.values()) {
             if (ingredientMap.containsKey(id)) {
                 ingredientMap.remove(id);
                 return true;
