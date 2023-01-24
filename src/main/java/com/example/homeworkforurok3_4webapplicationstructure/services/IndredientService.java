@@ -2,6 +2,8 @@ package com.example.homeworkforurok3_4webapplicationstructure.services;
 
 import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 
+import java.util.Collection;
+
 public interface IndredientService {
 
     long addIngredient(Ingredient ingredient);
@@ -12,5 +14,5 @@ public interface IndredientService {
 
     boolean deleteIngredient(long id);
 
-    Ingredient getAllIngredient();
+    Collection<Ingredient> getAllIngredient();
 }

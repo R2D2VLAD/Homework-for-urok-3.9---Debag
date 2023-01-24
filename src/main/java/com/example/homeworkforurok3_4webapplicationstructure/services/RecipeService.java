@@ -2,6 +2,8 @@ package com.example.homeworkforurok3_4webapplicationstructure.services;
 
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
 
+import java.util.Collection;
+
 public interface RecipeService {
     long addRecipe(Recipe recipe);
 
@@ -11,5 +13,5 @@ public interface RecipeService {
 
     boolean deleteRecipe(long id);
 
-    Recipe getAllRecipe();
+    Collection<Recipe> getAllRecipe();
 }

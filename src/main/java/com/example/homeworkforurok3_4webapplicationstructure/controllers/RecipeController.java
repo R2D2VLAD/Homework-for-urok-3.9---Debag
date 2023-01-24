@@ -1,6 +1,6 @@
 package com.example.homeworkforurok3_4webapplicationstructure.controllers;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
-import com.example.homeworkforurok3_4webapplicationstructure.services.impl.RecipeService;
+import com.example.homeworkforurok3_4webapplicationstructure.services.impl.RecipeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -8,12 +8,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/recipe")
 @Tag(name = "Рецепты", description = "Endpoint-ы для упраления рецептами")
 public class RecipeController {
-    private final RecipeService recipeService;
-    public RecipeController(RecipeService recipeService) {
+    private final RecipeServiceImpl recipeService;
+    public RecipeController(RecipeServiceImpl recipeService) {
         this.recipeService = recipeService;
     }
 
@@ -76,8 +78,8 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Список рецептов представлен")})
-    public ResponseEntity<Recipe> getAllRecipe() {
-        Recipe recipe = recipeService.getAllRecipe();
+    public ResponseEntity<Collection<Recipe>> getAllRecipe() {
+        Collection<Recipe> recipe = recipeService.getAllRecipe();
         return ResponseEntity.ok(recipe);
     }
 }

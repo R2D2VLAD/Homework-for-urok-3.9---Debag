@@ -4,11 +4,12 @@ import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 import com.example.homeworkforurok3_4webapplicationstructure.services.IndredientService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class IngredientService implements IndredientService {
+public class IngredientServiceImpl implements IndredientService {
     private static final Map<Long, Ingredient> ingredientMap = new HashMap<>();
 
     public static long id = 0;
@@ -52,11 +53,8 @@ public class IngredientService implements IndredientService {
         return false;
     }
     @Override
-    public Ingredient getAllIngredient() {
-        for (Map.Entry<Long, Ingredient> entry : ingredientMap.entrySet()) {
-            return entry.getValue();
-        }
-        return null;
+    public Collection<Ingredient> getAllIngredient() {
+        return ingredientMap.values();
     }
 }
 

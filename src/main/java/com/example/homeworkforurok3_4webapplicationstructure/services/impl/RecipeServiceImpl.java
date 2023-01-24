@@ -1,11 +1,14 @@
 package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
+import com.example.homeworkforurok3_4webapplicationstructure.services.RecipeService;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class RecipeService implements com.example.homeworkforurok3_4webapplicationstructure.services.RecipeService {
+public class RecipeServiceImpl implements RecipeService {
     private static final Map<Long, Recipe> recipeMap = new HashMap<>();
 
     public static long id = 0;
@@ -50,10 +53,7 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
     }
 
     @Override
-    public Recipe getAllRecipe() {
-        for (Map.Entry<Long, Recipe> entry : recipeMap.entrySet()) {
-            return entry.getValue();
-        }
-        return null;
+    public Collection<Recipe> getAllRecipe() {
+        return recipeMap.values();
     }
 }
