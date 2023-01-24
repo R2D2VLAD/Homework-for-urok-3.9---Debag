@@ -3,13 +3,12 @@ package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 import com.example.homeworkforurok3_4webapplicationstructure.services.IndredientService;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class IngredientService implements IndredientService {
-    private static Map<Long, Ingredient> ingredientMap = new HashMap<>();
+    private static final Map<Long, Ingredient> ingredientMap = new HashMap<>();
 
     public static long id = 0;
 
@@ -28,6 +27,31 @@ public class IngredientService implements IndredientService {
             }
         }
         return null;
+    }
+
+    @Override
+    public Ingredient editIngredient(long id, Ingredient ingredient) {
+        for (Ingredient ignored : ingredientMap.values()) {
+            if (ingredientMap.containsKey(id)) {
+                ingredientMap.put(id, ingredient);
+                return ingredient;
+            }
+        }
+        return null;
+    }
+    @Override
+    public boolean deleteIngredient(long id) {
+        for (Ingredient ignored : ingredientMap.values()) {
+            if (ingredientMap.containsKey(id)) {
+                ingredientMap.remove(id);
+                return true;
+            }
+        }
+        return false;
+    }
+    @Override
+    public void getAllIngredient() {
+        ingredientMap.forEach((key, value) -> { });
     }
 }
 

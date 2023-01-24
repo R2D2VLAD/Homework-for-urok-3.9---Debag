@@ -3,7 +3,13 @@ package com.example.homeworkforurok3_4webapplicationstructure.services;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
 
 public interface RecipeService {
-    public long addRecipe(Recipe recipe);
+    long addRecipe(Recipe recipe);
 
-    public Recipe getRecipe(long id);
+    Recipe getRecipe(long id);
+
+    Recipe editRecipe(long id, Recipe recipe);
+
+    boolean deleteRecipe(long id);
+
+    void getAllRecipe();
 }

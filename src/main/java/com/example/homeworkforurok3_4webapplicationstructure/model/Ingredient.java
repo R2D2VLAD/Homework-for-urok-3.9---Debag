@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Ingredient {
     private String ingredientName;
-    private int numberIngredients;
+    private Integer numberIngredients;
     private String unitMeasure;
 
     public Ingredient(String ingredientName, int numberIngredients, String unitMeasure) {

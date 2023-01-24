@@ -19,6 +19,23 @@ public class RecipeController {
         return ResponseEntity.ok(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Recipe> editRecipe(@PathVariable long id, @RequestBody Recipe recipe) {
+        Recipe recipe1 = recipeService.editRecipe(id, recipe);
+        if (recipe1 == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipe);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRecipe(@PathVariable long id) {
+        if (recipeService.deleteRecipe(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Recipe> getRecipe(@PathVariable long id) {
         Recipe recipe = recipeService.getRecipe(id);
@@ -26,5 +43,11 @@ public class RecipeController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(recipe);
+    }
+
+    @GetMapping
+    public ResponseEntity<Void> getAllRecipe() {
+        recipeService.getAllRecipe();
+        return ResponseEntity.ok().build();
     }
 }

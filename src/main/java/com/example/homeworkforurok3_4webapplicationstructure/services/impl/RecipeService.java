@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Service
 public class RecipeService implements com.example.homeworkforurok3_4webapplicationstructure.services.RecipeService {
-   private static Map<Long, Recipe> recipeMap = new HashMap<>();
+    private static final Map<Long, Recipe> recipeMap = new HashMap<>();
 
     public static long id = 0;
 
@@ -27,5 +27,32 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
             }
         }
         return null;
+    }
+
+    @Override
+    public Recipe editRecipe(long id, Recipe recipe) {
+        for (Recipe ignored : recipeMap.values()) {
+            if (recipeMap.containsKey(id)) {
+                recipeMap.put(id, recipe);
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteRecipe(long id) {
+        for (Recipe ignored : recipeMap.values()) {
+            if (recipeMap.containsKey(id)) {
+                recipeMap.remove(id);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void getAllRecipe() {
+        recipeMap.forEach((key, value) -> { });
     }
 }
