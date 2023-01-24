@@ -11,5 +11,5 @@ public interface RecipeService {
 
     boolean deleteRecipe(long id);
 
-    void getAllRecipe();
+    Recipe getAllRecipe();
 }

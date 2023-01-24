@@ -3,6 +3,7 @@ package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 import com.example.homeworkforurok3_4webapplicationstructure.services.IndredientService;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class IngredientService implements IndredientService {
         }
         return null;
     }
+
     @Override
     public boolean deleteIngredient(long id) {
         for (Ingredient ignored : ingredientMap.values()) {
@@ -50,8 +52,11 @@ public class IngredientService implements IndredientService {
         return false;
     }
     @Override
-    public void getAllIngredient() {
-        ingredientMap.forEach((key, value) -> { });
+    public Ingredient getAllIngredient() {
+        for (Map.Entry<Long, Ingredient> entry : ingredientMap.entrySet()) {
+            return entry.getValue();
+        }
+        return null;
     }
 }
 

@@ -76,8 +76,8 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Список рецептов представлен")})
-    public ResponseEntity<Void> getAllRecipe() {
-        recipeService.getAllRecipe();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Recipe> getAllRecipe() {
+        Recipe recipe = recipeService.getAllRecipe();
+        return ResponseEntity.ok(recipe);
     }
 }

@@ -50,7 +50,10 @@ public class RecipeService implements com.example.homeworkforurok3_4webapplicati
     }
 
     @Override
-    public void getAllRecipe() {
-        recipeMap.forEach((id, recipe) -> {});
+    public Recipe getAllRecipe() {
+        for (Map.Entry<Long, Recipe> entry : recipeMap.entrySet()) {
+            return entry.getValue();
+        }
+        return null;
     }
 }

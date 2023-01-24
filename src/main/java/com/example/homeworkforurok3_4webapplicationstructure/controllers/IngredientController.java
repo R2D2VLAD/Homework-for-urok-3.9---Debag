@@ -81,8 +81,8 @@ public class IngredientController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Список всех ингредиентов!")})
-    public ResponseEntity<Void> getAllIngredient() {
-        ingredientService.getAllIngredient();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Ingredient> getAllIngredient() {
+        Ingredient ingredient = ingredientService.getAllIngredient();
+        return ResponseEntity.ok(ingredient);
     }
 }
