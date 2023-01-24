@@ -1,11 +1,16 @@
 package com.example.homeworkforurok3_4webapplicationstructure.controllers;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 import com.example.homeworkforurok3_4webapplicationstructure.services.impl.IngredientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ingredient")
+@Tag(name = "Ингредиенты", description = "Endpoint-ы для упраления ингредиентами")
 public class IngredientController {
 
     private final IngredientService ingredientService;
@@ -14,12 +19,24 @@ public class IngredientController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Endpoint для добаления ингредиентов")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ингредиент успешно добавлен!")})
     public ResponseEntity<Long> addIngredient(@RequestBody Ingredient ingredient) {
         long id = ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok(id);
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Endpoint для редактирования ингредиентов по id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ингредиент успешно изменен!")})
     public ResponseEntity<Ingredient> editIngredient(@PathVariable long id, @RequestBody Ingredient ingredient) {
         Ingredient ingredient1 = ingredientService.editIngredient(id, ingredient);
         if (ingredient1 == null) {
@@ -29,6 +46,12 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Endpoint для удаления ингредиетов по id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ингредиент успешно удалён!")})
     public ResponseEntity<Void> deleteIngredient(@PathVariable long id) {
         if (ingredientService.deleteIngredient(id)) {
             return ResponseEntity.ok().build();
@@ -37,6 +60,12 @@ public class IngredientController {
     }
 
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Endpoint для получения ингредиентов по id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ингредиент!")})
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long id) {
         Ingredient ingredient = ingredientService.getIngredient(id);
         if (ingredient == null) {
@@ -46,6 +75,12 @@ public class IngredientController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Endpoint получения всех ингредиентов")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Список всех ингредиентов!")})
     public ResponseEntity<Void> getAllIngredient() {
         ingredientService.getAllIngredient();
         return ResponseEntity.ok().build();
