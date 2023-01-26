@@ -23,16 +23,16 @@ public class RecipeServiceImpl implements RecipeService {
         this.filesService = filesService;
     }
 
+    @PostConstruct
+    private void init() {
+        readFromFile();
+    }
+
     @Override
     public long addRecipe(Recipe recipe) {
         recipeMap.put(id, recipe);
         saveToFile();
         return id++;
-    }
-
-    @PostConstruct
-    private void init() {
-        readFromFile();
     }
 
     @Override
