@@ -5,6 +5,7 @@ import com.example.homeworkforurok3_4webapplicationstructure.services.Indredient
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -15,13 +16,13 @@ import java.util.Map;
 @Service
 public class IngredientServiceImpl implements IndredientService {
 
-    private final FilesServiceImpl2 filesService2;
+    private final FilesServiceImpl filesService;
     private static Map<Long, Ingredient> ingredientMap = new HashMap<>();
 
     public static long id = 0;
 
-    public IngredientServiceImpl(FilesServiceImpl2 filesServiceImpl2) {
-        this.filesService2 = filesServiceImpl2;
+    public IngredientServiceImpl(FilesServiceImpl filesService) {
+        this.filesService = filesService;
     }
 
     @PostConstruct
@@ -38,35 +39,26 @@ public class IngredientServiceImpl implements IndredientService {
 
     @Override
     public Ingredient getIngredient(long id) {
-        for (Ingredient ignored : ingredientMap.values()) {
-            Ingredient ingredient1 = ingredientMap.get(id);
-            if (ingredient1 != null) {
-                return ingredient1;
-            }
-        }
-        return null;
+        return ingredientMap.get(id);
     }
 
     @Override
     public Ingredient editIngredient(long id, Ingredient ingredient) {
-        for (Ingredient ignored : ingredientMap.values()) {
             if (ingredientMap.containsKey(id)) {
                 ingredientMap.put(id, ingredient);
                 saveToFile();
                 return ingredient;
             }
-        }
         return null;
     }
 
     @Override
     public boolean deleteIngredient(long id) {
-        for (Ingredient ignored : ingredientMap.values()) {
             if (ingredientMap.containsKey(id)) {
                 ingredientMap.remove(id);
+                saveToFile();
                 return true;
             }
-        }
         return false;
     }
     @Override
@@ -74,10 +66,15 @@ public class IngredientServiceImpl implements IndredientService {
         return ingredientMap.values();
     }
 
+    @Value("${path.to.ingredient.file}")
+    private String dataFilePath;
+    @Value("${name.of.ingredient.file}")
+    private String dataFileName;
+
     private void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(ingredientMap);
-            filesService2.saveToFile(json);
+            filesService.saveToFile(json, dataFilePath, dataFileName);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +82,7 @@ public class IngredientServiceImpl implements IndredientService {
 
     private void readFromFile() {
         try {
-            String json = filesService2.readFromFile();
+            String json = filesService.readFromFile(dataFilePath, dataFileName);
             ingredientMap = new ObjectMapper().readValue(json, new TypeReference<HashMap<Long, Ingredient>>() {
             });
         } catch (JsonProcessingException e) {

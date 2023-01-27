@@ -4,6 +4,7 @@ import com.example.homeworkforurok3_4webapplicationstructure.services.RecipeServ
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -37,35 +38,26 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe getRecipe(long id) {
-        for (Recipe ignored : recipeMap.values()) {
-            Recipe recipe1 = recipeMap.get(id);
-            if (recipe1 != null) {
-                return recipe1;
-            }
-        }
-        return null;
+        return recipeMap.get(id);
     }
 
     @Override
     public Recipe editRecipe(long id, Recipe recipe) {
-        for (Map.Entry<Long, Recipe> ignored : recipeMap.entrySet()) {
             if (recipeMap.containsKey(id)) {
                 recipeMap.put(id, recipe);
                 saveToFile();
                 return recipe;
             }
-        }
         return null;
     }
 
     @Override
     public boolean deleteRecipe(long id) {
-        for (Recipe ignored : recipeMap.values()) {
             if (recipeMap.containsKey(id)) {
                 recipeMap.remove(id);
+                saveToFile();
                 return true;
             }
-        }
         return false;
     }
 
@@ -74,10 +66,16 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeMap.values();
     }
 
+    @Value("${path.to.recipe.file}")
+    private String dataFilePath;
+
+    @Value("${name.of.recipe.file}")
+    private String dataFileName;
+
     private void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
-            filesService.saveToFile(json);
+            filesService.saveToFile(json, dataFilePath, dataFileName);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +83,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     private void readFromFile() {
         try {
-            String json = filesService.readFromFile();
+            String json = filesService.readFromFile(dataFilePath, dataFileName);
             recipeMap = new ObjectMapper().readValue(json, new TypeReference<HashMap<Long, Recipe>>() {
             });
         } catch (JsonProcessingException e) {
