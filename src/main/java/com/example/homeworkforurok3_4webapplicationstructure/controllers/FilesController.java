@@ -2,6 +2,9 @@ package com.example.homeworkforurok3_4webapplicationstructure.controllers;
 
 import com.example.homeworkforurok3_4webapplicationstructure.services.impl.FilesServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +45,27 @@ public class FilesController {
 
     @GetMapping("/recipeExport")
     @Operation(summary = "Endpoint для выгрузки рецептов")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<InputStreamResource> downloadRecipeFile() throws FileNotFoundException {
         File file = filesService.getDataFile(new File(dataFilePath1), new File(dataFileName1));
         if (file.exists()) {
@@ -58,6 +82,27 @@ public class FilesController {
 
     @PostMapping(value = "/recipeImport", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint для загрузки рецептов")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Void> uploadRecipe(@RequestParam MultipartFile file) {
         filesService.cleanDataFile(dataFilePath1, dataFileName1);
         File dataFile = filesService.getDataFile(new File(dataFilePath1), new File(dataFileName1));
@@ -73,6 +118,27 @@ public class FilesController {
 
     @PostMapping(value = "/ingredientImport", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint для загрузки ингредиентов")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Void> uploadIngredient(@RequestParam MultipartFile file) {
         filesService.cleanDataFile(dataFilePath2, dataFileName2);
         File dataFile = filesService.getDataFile(new File(dataFilePath2), new File(dataFileName2));

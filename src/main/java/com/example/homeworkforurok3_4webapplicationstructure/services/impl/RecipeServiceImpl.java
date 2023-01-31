@@ -1,9 +1,13 @@
 package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
+
 import com.example.homeworkforurok3_4webapplicationstructure.model.Recipe;
 import com.example.homeworkforurok3_4webapplicationstructure.services.RecipeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +30,11 @@ public class RecipeServiceImpl implements RecipeService {
 
     @PostConstruct
     private void init() {
-        readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -43,21 +51,21 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe editRecipe(long id, Recipe recipe) {
-            if (recipeMap.containsKey(id)) {
-                recipeMap.put(id, recipe);
-                saveToFile();
-                return recipe;
-            }
+        if (recipeMap.containsKey(id)) {
+            recipeMap.put(id, recipe);
+            saveToFile();
+            return recipe;
+        }
         return null;
     }
 
     @Override
     public boolean deleteRecipe(long id) {
-            if (recipeMap.containsKey(id)) {
-                recipeMap.remove(id);
-                saveToFile();
-                return true;
-            }
+        if (recipeMap.containsKey(id)) {
+            recipeMap.remove(id);
+            saveToFile();
+            return true;
+        }
         return false;
     }
 
@@ -74,7 +82,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     private void saveToFile() {
         try {
-            String json = new ObjectMapper().writeValueAsString(recipeMap);
+            DataFile dataFile = new DataFile(id + 1, recipeMap);
+            String json = new ObjectMapper().writeValueAsString(dataFile);
             filesService.saveToFile(json, dataFilePath, dataFileName);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -84,10 +93,20 @@ public class RecipeServiceImpl implements RecipeService {
     private void readFromFile() {
         try {
             String json = filesService.readFromFile(dataFilePath, dataFileName);
-            recipeMap = new ObjectMapper().readValue(json, new TypeReference<HashMap<Long, Recipe>>() {
+            DataFile dataFile = new ObjectMapper().readValue(json, new TypeReference<>() {
             });
+            id = dataFile.getId();
+            recipeMap = dataFile.getRecipeMap();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    private static class DataFile {
+        private long id;
+        private Map<Long, Recipe> recipeMap;
     }
 }

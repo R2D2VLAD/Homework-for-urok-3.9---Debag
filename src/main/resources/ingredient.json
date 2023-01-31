@@ -1,1 +1,35 @@
-{"0":{"ingredientName":"string","numberIngredients":15,"unitMeasure":"string"},"1":{"ingredientName":"string","numberIngredients":20,"unitMeasure":"string"}}
+{
+  "id": 6,
+  "ingredientMap": {
+    "0": {
+      "ingredientName": "Клубника",
+      "numberIngredients": 1000,
+      "unitMeasure": "грамм"
+    },
+    "1": {
+      "ingredientName": "Банан",
+      "numberIngredients": 1000,
+      "unitMeasure": "грамм"
+    },
+    "2": {
+      "ingredientName": "Киви",
+      "numberIngredients": 1000,
+      "unitMeasure": "грамм"
+    },
+    "3": {
+      "ingredientName": "Киви",
+      "numberIngredients": 1000,
+      "unitMeasure": "грамм"
+    },
+    "4": {
+      "ingredientName": "Киви",
+      "numberIngredients": 2000,
+      "unitMeasure": "грамм"
+    },
+    "5": {
+      "ingredientName": "Оливки",
+      "numberIngredients": 500,
+      "unitMeasure": "грамм"
+    }
+  }
+}
