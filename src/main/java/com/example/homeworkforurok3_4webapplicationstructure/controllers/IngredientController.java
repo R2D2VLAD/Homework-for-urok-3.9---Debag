@@ -2,6 +2,7 @@ package com.example.homeworkforurok3_4webapplicationstructure.controllers;
 import com.example.homeworkforurok3_4webapplicationstructure.model.Ingredient;
 import com.example.homeworkforurok3_4webapplicationstructure.services.impl.IngredientServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +27,24 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Ингредиент успешно добавлен!")})
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Long> addIngredient(@RequestBody Ingredient ingredient) {
         long id = ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok(id);
@@ -38,7 +56,24 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Ингредиент успешно изменен!")})
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Ingredient> editIngredient(@PathVariable long id, @RequestBody Ingredient ingredient) {
         Ingredient ingredient1 = ingredientService.editIngredient(id, ingredient);
         if (ingredient1 == null) {
@@ -53,7 +88,24 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Ингредиент успешно удалён!")})
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Void> deleteIngredient(@PathVariable long id) {
         if (ingredientService.deleteIngredient(id)) {
             return ResponseEntity.ok().build();
@@ -67,7 +119,24 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Ингредиент!")})
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long id) {
         Ingredient ingredient = ingredientService.getIngredient(id);
         if (ingredient == null) {
@@ -82,7 +151,24 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Список всех ингредиентов!")})
+                    description = "Всё хорошо, запрос выполнился!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Есть ошибка в параметрах запроса",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия в приложении нет!",
+                    content = {
+                            @Content(mediaType = "application/json")}),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере!",
+                    content = {
+                            @Content(mediaType = "application/json")}),})
     public ResponseEntity<Collection<Ingredient>> getAllIngredient() {
         Collection<Ingredient> ingredient = ingredientService.getAllIngredient();
         return ResponseEntity.ok(ingredient);

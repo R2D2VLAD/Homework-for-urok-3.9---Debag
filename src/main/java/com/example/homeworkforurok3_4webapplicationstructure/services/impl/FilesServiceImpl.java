@@ -3,8 +3,7 @@ package com.example.homeworkforurok3_4webapplicationstructure.services.impl;
 import com.example.homeworkforurok3_4webapplicationstructure.services.FilesService;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -32,15 +31,13 @@ public class FilesServiceImpl implements FilesService {
         return null;
     }
 
-    public boolean cleanDataFile(String dataFilePath, String dataFileName) {
+    public void cleanDataFile(String dataFilePath, String dataFileName) {
         try {
             Path path = Path.of(dataFilePath, dataFileName);
             Files.deleteIfExists(path);
             Files.createFile(path);
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
